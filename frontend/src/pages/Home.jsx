@@ -1,7 +1,9 @@
 export default function Home() {
     return (
         <div className="p-8">
-            <h1>Homepagina van Geoprofs</h1>
+
+            <p className="mt-2 text-gray-600">
+            </p>
         </div>
     );
 }

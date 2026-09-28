@@ -13,6 +13,7 @@ namespace Geoprofs
         {
             InitializeComponent();
             SetupRooster();
+
         }
 
         private void SetupRooster()
@@ -35,7 +36,7 @@ namespace Geoprofs
             };
 
             // 2. Voeg toe aan de controls
-            this.Controls.Add(grid);
+            tabControl1.TabPages[1].Controls.Add(grid);
             grid.BringToFront();
 
             // 3. Voeg de kolommen toe (inclusief Week-kolom zoals in je schets)
@@ -67,6 +68,11 @@ namespace Geoprofs
             {
                 grid.Rows[rowIndex].Cells[colIndex].Style.BackColor = kleur;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Form2().Show();
         }
     }
 }

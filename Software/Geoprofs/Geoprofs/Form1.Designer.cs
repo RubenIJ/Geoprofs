@@ -23,9 +23,11 @@
             Column1 = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
+            button1 = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -81,6 +83,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(button1);
             tabPage3.Location = new Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -88,6 +91,16 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(16, 611);
+            button1.Name = "button1";
+            button1.Size = new Size(276, 29);
+            button1.TabIndex = 0;
+            button1.Text = "Exporteer Afwezigheid (CSV)";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
@@ -100,6 +113,7 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -110,5 +124,6 @@
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Column1;
         private TabPage tabPage3;
+        private Button button1;
     }
 }

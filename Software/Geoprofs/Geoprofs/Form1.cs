@@ -1,5 +1,7 @@
 using System;
 using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using Krypton.Toolkit;
 
@@ -7,7 +9,8 @@ namespace Geoprofs
 {
     public partial class Form1 : KryptonForm
     {
-        private KryptonDataGridView grid;
+        private KryptonDataGridView? grid;
+        private DataGridView? gridAanvragen;
 
         public Form1()
         {
@@ -15,21 +18,14 @@ namespace Geoprofs
             SetupRooster();
             VulOveruren();
             SetupVerlofAanvragenTab();
-
         }
 
         private void SetupRooster()
         {
-
             grid = new KryptonDataGridView
             {
-                // Positie: X=40 (van links), Y=120 (voldoende ruimte onder de header)
                 Location = new Point(40, 120),
-
-                // Breedte en Hoogte aanpassen zodat het rooster niet het hele scherm beslaat
                 Size = new Size(550, 300),
-
-                // Zorg ervoor dat de kolommen zich netjes verdelen binnen de opgegeven breedte
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 AllowUserToAddRows = false,
                 RowHeadersVisible = false,
@@ -37,11 +33,12 @@ namespace Geoprofs
                 Visible = true
             };
 
-            // 2. Voeg toe aan de controls
-            tabControl1.TabPages[1].Controls.Add(grid);
-            grid.BringToFront();
+            if (tabControl1.TabPages.Count > 1)
+            {
+                tabControl1.TabPages[1].Controls.Add(grid);
+                grid.BringToFront();
+            }
 
-            // 3. Voeg de kolommen toe (inclusief Week-kolom zoals in je schets)
             grid.Columns.Add("ColWeek", "Week");
             grid.Columns.Add("ColMa", "Ma");
             grid.Columns.Add("ColDi", "Di");
@@ -50,29 +47,28 @@ namespace Geoprofs
             grid.Columns.Add("ColVr", "Vri");
             grid.Columns.Add("ColExtra", "+");
 
-            // Maak de 'Week' kolom iets smaller
             grid.Columns["ColWeek"].Width = 50;
 
-            // 4. Voeg testdata toe (Week 40 en Week 41)
             int row1 = grid.Rows.Add("40", "Aanwezig", "Aanwezig", "Verlof", "Verlof", "Aanwezig", "");
             int row2 = grid.Rows.Add("41", "Verlof", "Aanwezig", "Aanwezig", "Aanwezig", "Aanwezig", "");
 
-            // 5. Cellen inkleuren
-            MarkeerCel(row1, 3, Color.LightCoral); // Woe verlof
-            MarkeerCel(row1, 4, Color.LightCoral); // Do verlof
-            MarkeerCel(row2, 1, Color.LightCoral); // Ma verlof
-            //MarkeerCel(row2, 5, Color.Khaki);      // Vri ziek
+            MarkeerCel(row1, 3, Color.LightCoral);
+            MarkeerCel(row1, 4, Color.LightCoral);
+            MarkeerCel(row2, 1, Color.LightCoral);
         }
 
         private void MarkeerCel(int rowIndex, int colIndex, Color kleur)
         {
-            if (rowIndex >= 0 && rowIndex < grid.Rows.Count)
+            if (grid != null && rowIndex >= 0 && rowIndex < grid.Rows.Count)
             {
                 grid.Rows[rowIndex].Cells[colIndex].Style.BackColor = kleur;
             }
         }
+
         private void VulOveruren()
         {
+            if (dataGridView1 == null) return;
+
             dataGridView1.Columns.Add("Medewerker", "Medewerker");
             dataGridView1.Columns.Add("Overuren", "Overuren");
             dataGridView1.Columns.Add("Verlof", "Openstaand verlof");
@@ -90,9 +86,7 @@ namespace Geoprofs
 
         private void SetupVerlofAanvragenTab()
         {
-            // Gebruik de DataGridView die je op Tab 3 in de Designer hebt gezet
-            // (of als je 'm dynamisch aanmaakt, zoals hieronder):
-            DataGridView gridAanvragen = new DataGridView
+            gridAanvragen = new DataGridView
             {
                 Dock = DockStyle.Fill,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
@@ -106,7 +100,6 @@ namespace Geoprofs
                 tabControl1.TabPages[2].Controls.Add(gridAanvragen);
             }
 
-            // 1. Data-kolommen toevoegen
             gridAanvragen.Columns.Add("ColId", "ID");
             gridAanvragen.Columns.Add("ColWerknemer", "Werknemer");
             gridAanvragen.Columns.Add("ColVan", "Van");
@@ -114,40 +107,34 @@ namespace Geoprofs
             gridAanvragen.Columns.Add("ColReden", "Reden");
             gridAanvragen.Columns.Add("ColStatus", "Status");
 
-            // 2. Knopkolom: Goedkeuren
             DataGridViewButtonColumn btnGoedkeuren = new DataGridViewButtonColumn
             {
                 Name = "ColGoedkeuren",
                 HeaderText = "Goedkeuren",
-                Text = "✔ Goedgekeurd",
+                Text = "goedkeuren",
                 UseColumnTextForButtonValue = true
             };
             gridAanvragen.Columns.Add(btnGoedkeuren);
 
-            // 3. Knopkolom: Afkeuren
             DataGridViewButtonColumn btnAfkeuren = new DataGridViewButtonColumn
             {
                 Name = "ColAfkeuren",
                 HeaderText = "Afkeuren",
-                Text = "✖ Afgewezen",
+                Text = "Afwijzen",
                 UseColumnTextForButtonValue = true
             };
             gridAanvragen.Columns.Add(btnAfkeuren);
 
-            // Testdata toevoegen
             gridAanvragen.Rows.Add("1", "Jan Jansen", "12-10-2026", "14-10-2026", "Vakantie", "In Afwachting");
             gridAanvragen.Rows.Add("2", "Piet Pietersen", "15-10-2026", "15-10-2026", "Tandarts", "In Afwachting");
 
-            // 4. Afhandelen van de knopklikken
             gridAanvragen.CellClick += (sender, e) =>
             {
-                // Check of er op een geldige rij is geklikt (geen header)
-                if (e.RowIndex < 0) return;
+                if (e.RowIndex < 0 || gridAanvragen == null) return;
 
                 string werknemer = gridAanvragen.Rows[e.RowIndex].Cells["ColWerknemer"].Value?.ToString() ?? "";
                 string geklikteKolom = gridAanvragen.Columns[e.ColumnIndex].Name;
 
-                // Klik op 'Goedkeuren'
                 if (geklikteKolom == "ColGoedkeuren")
                 {
                     gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Goedgekeurd";
@@ -156,7 +143,6 @@ namespace Geoprofs
                     MessageBox.Show($"Verlofaanvraag van {werknemer} is GOEDGEKEURD.",
                                     "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                // Klik op 'Afkeuren'
                 else if (geklikteKolom == "ColAfkeuren")
                 {
                     gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Afgewezen";
@@ -166,6 +152,47 @@ namespace Geoprofs
                                     "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (gridAanvragen == null) return;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "CSV bestand (*.csv)|*.csv",
+                FileName = $"Afwezigheid_Export_{DateTime.Now:yyyyMMdd}.csv"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StringBuilder csvContent = new StringBuilder();
+
+                csvContent.AppendLine("ID;Werknemer;Van;Tot;Reden;Status");
+
+                foreach (DataGridViewRow row in gridAanvragen.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        string id = row.Cells["ColId"].Value?.ToString() ?? "";
+                        string werknemer = row.Cells["ColWerknemer"].Value?.ToString() ?? "";
+                        string van = row.Cells["ColVan"].Value?.ToString() ?? "";
+                        string tot = row.Cells["ColTot"].Value?.ToString() ?? "";
+                        string reden = row.Cells["ColReden"].Value?.ToString() ?? "";
+                        string status = row.Cells["ColStatus"].Value?.ToString() ?? "";
+
+                        if (status == "Goedgekeurd")
+                        {
+                            csvContent.AppendLine($"{id};{werknemer};{van};{tot};{reden};{status}");
+                        }
+                    }
+                }
+
+                File.WriteAllText(saveFileDialog.FileName, csvContent.ToString(), Encoding.UTF8);
+
+                MessageBox.Show("Afwezigheidsgegevens zijn succesvol geëxporteerd!", "Export Voltooid",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

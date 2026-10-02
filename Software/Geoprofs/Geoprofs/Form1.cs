@@ -13,12 +13,14 @@ namespace Geoprofs
         {
             InitializeComponent();
             SetupRooster();
+            VulOveruren();
+            SetupVerlofAanvragenTab();
 
         }
 
         private void SetupRooster()
         {
-            // 1. Maak de KryptonDataGridView aan ZONDER DockStyle.Fill
+
             grid = new KryptonDataGridView
             {
                 // Positie: X=40 (van links), Y=120 (voldoende ruimte onder de header)
@@ -69,10 +71,101 @@ namespace Geoprofs
                 grid.Rows[rowIndex].Cells[colIndex].Style.BackColor = kleur;
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void VulOveruren()
         {
-            new Form2().Show();
+            dataGridView1.Columns.Add("Medewerker", "Medewerker");
+            dataGridView1.Columns.Add("Overuren", "Overuren");
+            dataGridView1.Columns.Add("Verlof", "Openstaand verlof");
+
+            dataGridView1.Rows.Add("Jan", "4 uur", "1 aanvraag", "TRUE");
+            dataGridView1.Rows.Add("Lisa", "8 uur", "2 aanvragen", "FALSE");
+            dataGridView1.Rows.Add("Peter", "2 uur", "0 aanvragen", "FALSE");
+            dataGridView1.Rows.Add("Sophie", "6 uur", "3 aanvragen", "FALSE");
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SetupVerlofAanvragenTab()
+        {
+            // Gebruik de DataGridView die je op Tab 3 in de Designer hebt gezet
+            // (of als je 'm dynamisch aanmaakt, zoals hieronder):
+            DataGridView gridAanvragen = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                AllowUserToAddRows = false,
+                RowHeadersVisible = false,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            };
+
+            if (tabControl1.TabPages.Count >= 3)
+            {
+                tabControl1.TabPages[2].Controls.Add(gridAanvragen);
+            }
+
+            // 1. Data-kolommen toevoegen
+            gridAanvragen.Columns.Add("ColId", "ID");
+            gridAanvragen.Columns.Add("ColWerknemer", "Werknemer");
+            gridAanvragen.Columns.Add("ColVan", "Van");
+            gridAanvragen.Columns.Add("ColTot", "Tot");
+            gridAanvragen.Columns.Add("ColReden", "Reden");
+            gridAanvragen.Columns.Add("ColStatus", "Status");
+
+            // 2. Knopkolom: Goedkeuren
+            DataGridViewButtonColumn btnGoedkeuren = new DataGridViewButtonColumn
+            {
+                Name = "ColGoedkeuren",
+                HeaderText = "Goedkeuren",
+                Text = "✔ Goedgekeurd",
+                UseColumnTextForButtonValue = true
+            };
+            gridAanvragen.Columns.Add(btnGoedkeuren);
+
+            // 3. Knopkolom: Afkeuren
+            DataGridViewButtonColumn btnAfkeuren = new DataGridViewButtonColumn
+            {
+                Name = "ColAfkeuren",
+                HeaderText = "Afkeuren",
+                Text = "✖ Afgewezen",
+                UseColumnTextForButtonValue = true
+            };
+            gridAanvragen.Columns.Add(btnAfkeuren);
+
+            // Testdata toevoegen
+            gridAanvragen.Rows.Add("1", "Jan Jansen", "12-10-2026", "14-10-2026", "Vakantie", "In Afwachting");
+            gridAanvragen.Rows.Add("2", "Piet Pietersen", "15-10-2026", "15-10-2026", "Tandarts", "In Afwachting");
+
+            // 4. Afhandelen van de knopklikken
+            gridAanvragen.CellClick += (sender, e) =>
+            {
+                // Check of er op een geldige rij is geklikt (geen header)
+                if (e.RowIndex < 0) return;
+
+                string werknemer = gridAanvragen.Rows[e.RowIndex].Cells["ColWerknemer"].Value?.ToString() ?? "";
+                string geklikteKolom = gridAanvragen.Columns[e.ColumnIndex].Name;
+
+                // Klik op 'Goedkeuren'
+                if (geklikteKolom == "ColGoedkeuren")
+                {
+                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Goedgekeurd";
+                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Style.ForeColor = Color.Green;
+
+                    MessageBox.Show($"Verlofaanvraag van {werknemer} is GOEDGEKEURD.",
+                                    "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                // Klik op 'Afkeuren'
+                else if (geklikteKolom == "ColAfkeuren")
+                {
+                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Afgewezen";
+                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Style.ForeColor = Color.Red;
+
+                    MessageBox.Show($"Verlofaanvraag van {werknemer} is AFGEWEZEN.",
+                                    "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
         }
     }
 }

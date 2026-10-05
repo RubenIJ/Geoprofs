@@ -54,7 +54,7 @@ export default function Instellingen() {
                        </div>
                    </div>
 
-                    
+
                 </div>
             </div>
 

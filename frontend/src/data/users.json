@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "email": "admin@geoprofs.nl",
+    "password": "password123",
+    "naam": "ty",
+    "actief": true
+  },
+  {
+    "id": 2,
+    "email": "gebruiker@geoprofs.nl",
+    "password": "welkom01",
+    "naam": "Lisa de Vries",
+    "rol": "gebruiker",
+    "actief": true
+  },
+  {
+    "id": 3,
+    "email": "test@geoprofs.nl",
+    "password": "testpassword",
+    "naam": "Klaas Tester",
+    "rol": "gebruiker",
+    "actief": false
+  }
+]

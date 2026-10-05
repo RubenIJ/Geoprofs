@@ -40,15 +40,21 @@ export default function Instellingen() {
                         {user ? getInitials(user.naam) : '?'}
                     </div>
 
-                    <div className="space-y-1">
-                        <h3 className="text-xl font-bold text-slate-900">
-                            {user ? user.naam : 'Niet ingelogd'}
-                        </h3>
-                        <p className="text-sm text-slate-600">
-                            <span className="font-medium">E-mailadres:</span> {user ? user.email : '-'}
-                        </p>
+                   <div className="space-y-1">
+                       <h3 className="text-xl font-bold text-slate-900">
+                           {user ? user.naam : 'Niet ingelogd'}
+                       </h3>
+                       <div className="text-sm text-slate-600 space-y-0.5">
+                           <p>
+                               <span className="font-medium">E-mailadres: </span> {user ? user.email : '-'}
+                           </p>
+                           <p>
+                               <span className="font-medium">BSN: </span> {user ? user.bsn : '-'}
+                           </p>
+                       </div>
+                   </div>
 
-                    </div>
+                    
                 </div>
             </div>
 

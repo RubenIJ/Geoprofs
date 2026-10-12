@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -16,8 +17,16 @@ namespace Geoprofs
         {
             InitializeComponent();
             SetupRooster();
-            VulOveruren();
+
+            // Laad de data vanuit Supabase bij het openen
+            _ = LaadDataAsync();
+        }
+
+        private async Task LaadDataAsync()
+        {
+            await VulOverurenUitDatabaseAsync();
             SetupVerlofAanvragenTab();
+            await LaadVerlofaanvragenUitDatabaseAsync();
         }
 
         private void SetupRooster()
@@ -65,23 +74,25 @@ namespace Geoprofs
             }
         }
 
-        private void VulOveruren()
+        private async Task VulOverurenUitDatabaseAsync()
         {
             if (dataGridView1 == null) return;
 
-            dataGridView1.Columns.Add("Medewerker", "Medewerker");
-            dataGridView1.Columns.Add("Overuren", "Overuren");
-            dataGridView1.Columns.Add("Verlof", "Openstaand verlof");
+            try
+            {
+                string query = "SELECT voornaam || ' ' || achternaam AS medewerker, totaal_uren, gebruikte_uren, resterende_uren FROM medewerkers;";
+                DataTable dt = await Database.GetTableAsync(query);
 
-            dataGridView1.Rows.Add("Jan", "4 uur", "1 aanvraag", "TRUE");
-            dataGridView1.Rows.Add("Lisa", "8 uur", "2 aanvragen", "FALSE");
-            dataGridView1.Rows.Add("Peter", "2 uur", "0 aanvragen", "FALSE");
-            dataGridView1.Rows.Add("Sophie", "6 uur", "3 aanvragen", "FALSE");
+                dataGridView1.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fout bij ophalen medewerkers/uren: {ex.Message}", "Database Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void SetupVerlofAanvragenTab()
@@ -100,58 +111,100 @@ namespace Geoprofs
                 tabControl1.TabPages[2].Controls.Add(gridAanvragen);
             }
 
-            gridAanvragen.Columns.Add("ColId", "ID");
-            gridAanvragen.Columns.Add("ColWerknemer", "Werknemer");
-            gridAanvragen.Columns.Add("ColVan", "Van");
-            gridAanvragen.Columns.Add("ColTot", "Tot");
-            gridAanvragen.Columns.Add("ColReden", "Reden");
-            gridAanvragen.Columns.Add("ColStatus", "Status");
-
-            DataGridViewButtonColumn btnGoedkeuren = new DataGridViewButtonColumn
-            {
-                Name = "ColGoedkeuren",
-                HeaderText = "Goedkeuren",
-                Text = "goedkeuren",
-                UseColumnTextForButtonValue = true
-            };
-            gridAanvragen.Columns.Add(btnGoedkeuren);
-
-            DataGridViewButtonColumn btnAfkeuren = new DataGridViewButtonColumn
-            {
-                Name = "ColAfkeuren",
-                HeaderText = "Afkeuren",
-                Text = "Afwijzen",
-                UseColumnTextForButtonValue = true
-            };
-            gridAanvragen.Columns.Add(btnAfkeuren);
-
-            gridAanvragen.Rows.Add("1", "Jan Jansen", "12-10-2026", "14-10-2026", "Vakantie", "In Afwachting");
-            gridAanvragen.Rows.Add("2", "Piet Pietersen", "15-10-2026", "15-10-2026", "Tandarts", "In Afwachting");
-
-            gridAanvragen.CellClick += (sender, e) =>
+            // Koppel de klik-events voor goedkeuren / afwijzen op basis van de database ID
+            gridAanvragen.CellClick += async (sender, e) =>
             {
                 if (e.RowIndex < 0 || gridAanvragen == null) return;
 
-                string werknemer = gridAanvragen.Rows[e.RowIndex].Cells["ColWerknemer"].Value?.ToString() ?? "";
+                string id = gridAanvragen.Rows[e.RowIndex].Cells["id"].Value?.ToString() ?? "";
+                string werknemer = gridAanvragen.Rows[e.RowIndex].Cells["werknemer"].Value?.ToString() ?? "";
                 string geklikteKolom = gridAanvragen.Columns[e.ColumnIndex].Name;
 
                 if (geklikteKolom == "ColGoedkeuren")
                 {
-                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Goedgekeurd";
-                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Style.ForeColor = Color.Green;
-
-                    MessageBox.Show($"Verlofaanvraag van {werknemer} is GOEDGEKEURD.",
-                                    "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await UpdateStatusInDatabaseAsync(id, 2); // 2 = Goedgekeurd
+                    MessageBox.Show($"Verlofaanvraag van {werknemer} is GOEDGEKEURD.", "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LaadVerlofaanvragenUitDatabaseAsync();
                 }
                 else if (geklikteKolom == "ColAfkeuren")
                 {
-                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Value = "Afgewezen";
-                    gridAanvragen.Rows[e.RowIndex].Cells["ColStatus"].Style.ForeColor = Color.Red;
-
-                    MessageBox.Show($"Verlofaanvraag van {werknemer} is AFGEWEZEN.",
-                                    "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    await UpdateStatusInDatabaseAsync(id, 3); // 3 = Afgewezen
+                    MessageBox.Show($"Verlofaanvraag van {werknemer} is AFGEWEZEN.", "Status Bijgewerkt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    await LaadVerlofaanvragenUitDatabaseAsync();
                 }
             };
+        }
+
+        private async Task LaadVerlofaanvragenUitDatabaseAsync()
+        {
+            if (gridAanvragen == null) return;
+
+            try
+            {
+                // Correcte JOIN met de 'status' tabel (en 'status_id')
+                string query = @"
+            SELECT 
+                v.id, 
+                m.voornaam || ' ' || m.achternaam AS werknemer, 
+                v.startdatum AS van, 
+                v.einddatum AS tot, 
+                vr.beschrijving AS reden, 
+                st.naam AS status,
+                v.status_id
+            FROM verlofaanvragen v
+            JOIN medewerkers m ON v.medewerker_id = m.id
+            JOIN verlofredenen vr ON v.verlofreden_id = vr.id
+            JOIN status st ON v.status_id = st.id;";
+
+                DataTable dt = await Database.GetTableAsync(query);
+                gridAanvragen.DataSource = dt;
+
+                if (gridAanvragen.Columns.Contains("status_id"))
+                {
+                    gridAanvragen.Columns["status_id"].Visible = false;
+                }
+
+                if (!gridAanvragen.Columns.Contains("ColGoedkeuren"))
+                {
+                    DataGridViewButtonColumn btnGoedkeuren = new DataGridViewButtonColumn
+                    {
+                        Name = "ColGoedkeuren",
+                        HeaderText = "Goedkeuren",
+                        Text = "goedkeuren",
+                        UseColumnTextForButtonValue = true
+                    };
+                    gridAanvragen.Columns.Add(btnGoedkeuren);
+                }
+
+                if (!gridAanvragen.Columns.Contains("ColAfkeuren"))
+                {
+                    DataGridViewButtonColumn btnAfkeuren = new DataGridViewButtonColumn
+                    {
+                        Name = "ColAfkeuren",
+                        HeaderText = "Afkeuren",
+                        Text = "Afwijzen",
+                        UseColumnTextForButtonValue = true
+                    };
+                    gridAanvragen.Columns.Add(btnAfkeuren);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fout bij ophalen verlofaanvragen: {ex.Message}", "Database Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task UpdateStatusInDatabaseAsync(string id, int statusId)
+        {
+            try
+            {
+                string query = $"UPDATE verlofaanvragen SET status_id = {statusId} WHERE id = {id};";
+                await Database.ExecuteNonQueryAsync(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fout bij bijwerken status in database: {ex.Message}");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -168,22 +221,21 @@ namespace Geoprofs
             {
                 StringBuilder csvContent = new StringBuilder();
 
-                csvContent.AppendLine("ID;Werknemer;Van;Tot;Reden;Status");
+                csvContent.AppendLine("ID;Van;Tot;Reden");
 
                 foreach (DataGridViewRow row in gridAanvragen.Rows)
                 {
                     if (!row.IsNewRow)
                     {
-                        string id = row.Cells["ColId"].Value?.ToString() ?? "";
-                        string werknemer = row.Cells["ColWerknemer"].Value?.ToString() ?? "";
-                        string van = row.Cells["ColVan"].Value?.ToString() ?? "";
-                        string tot = row.Cells["ColTot"].Value?.ToString() ?? "";
-                        string reden = row.Cells["ColReden"].Value?.ToString() ?? "";
-                        string status = row.Cells["ColStatus"].Value?.ToString() ?? "";
+                        string id = row.Cells["id"].Value?.ToString() ?? "";
+                        string van = row.Cells["van"].Value?.ToString() ?? "";
+                        string tot = row.Cells["tot"].Value?.ToString() ?? "";
+                        string reden = row.Cells["reden"].Value?.ToString() ?? "";
+                        string status = row.Cells["status"].Value?.ToString() ?? "";
 
                         if (status == "Goedgekeurd")
                         {
-                            csvContent.AppendLine($"{id};{werknemer};{van};{tot};{reden};{status}");
+                            csvContent.AppendLine($"{id};{van};{tot};{reden}");
                         }
                     }
                 }

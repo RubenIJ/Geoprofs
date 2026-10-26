@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabase'; // Zorg dat deze import bovenin staat
 
 export default function Instellingen() {
     const navigate = useNavigate();
@@ -17,11 +18,11 @@ export default function Instellingen() {
         return naam.trim().charAt(0).toUpperCase();
     };
 
-    function handleLogout() {
-        localStorage.removeItem('geoprofs_user');
-        navigate('/inloggen');
-    }
-
+   async function handleLogout() {
+       await supabase.auth.signOut(); // Sluit ook de echte Supabase sessie af!
+       localStorage.removeItem('geoprofs_user');
+       navigate('/inloggen');
+   }
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-6">
             {/* Paginatitel */}

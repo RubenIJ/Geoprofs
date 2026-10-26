@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabase'; // Zorg dat deze import bovenin staat
 
 export default function Instellingen() {
     const navigate = useNavigate();
 
-    function handleLogout() {
-        localStorage.removeItem('geoprofs_user');
-        navigate('/inloggen');
-    }
-
+   async function handleLogout() {
+       await supabase.auth.signOut(); // Sluit ook de echte Supabase sessie af!
+       localStorage.removeItem('geoprofs_user');
+       navigate('/inloggen');
+   }
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold">Instellingen</h1>

@@ -1,79 +1,23 @@
-<<<<<<< Updated upstream
-export default function Verlof() {
-    return (
-        <div className="p-8">
-
-            <p className="mt-2 text-gray-600">
-          verlof  </p>
-        </div>
-    );
-=======
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabase';
+import usersData from '../data/users.json';
 
 export default function Verlof() {
   const [huidigeGebruiker, setHuidigeGebruiker] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function laadGebruikerData() {
-      try {
-        const storedUser = localStorage.getItem('geoprofs_user');
-        if (!storedUser) {
-          setLoading(false);
-          return;
-        }
-
-        const parsedUser = JSON.parse(storedUser);
-        if (!parsedUser.id) {
-          setLoading(false);
-          return;
-        }
-
-        // 1. Haal de medewerker op uit de database
-        const { data: userData, error: userError } = await supabase
-          .from('medewerkers')
-          .select('*')
-          .eq('id', parsedUser.id)
-          .maybeSingle();
-
-        if (userError || !userData) {
-          console.error('Fout bij ophalen medewerker:', userError?.message);
-          setLoading(false);
-          return;
-        }
-
-        // 2. Haal de verlofaanvragen op voor deze medewerker
-        const { data: verlofData, error: verlofError } = await supabase
-          .from('verlof_aanvragen')
-          .select('*')
-          .eq('medewerker_id', parsedUser.id);
-
-        if (verlofError) {
-          console.error('Fout bij ophalen verlofaanvragen:', verlofError.message);
-        }
-
-        // 3. Zet alles in de state (inclusief de verlofaanvragen als array)
-        setHuidigeGebruiker({
-          ...userData,
-          verlof_aanvragen: verlofData || []
-        });
-
-      } catch (err) {
-        console.error('Onverwachte fout:', err);
-      } finally {
-        setLoading(false);
-      }
+    const storedUser = localStorage.getItem('geoprofs_user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      const volledigeData = usersData.find(u => u.id === parsedUser.id) || parsedUser;
+      setHuidigeGebruiker(volledigeData);
     }
-
-    laadGebruikerData();
   }, []);
 
-  if (loading || !huidigeGebruiker) {
+  if (!huidigeGebruiker) {
     return (
       <div className="p-8 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-800">Mijn Verlof</h1>
-        <p className="mt-2 text-gray-600">Laden...</p>
+        <p className="mt-2 text-gray-600">Laden:)</p>
       </div>
     );
   }
@@ -83,22 +27,22 @@ export default function Verlof() {
       {/* Paginatitel */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-800">Mijn Verlof</h1>
-        <p className="text-sm text-gray-500">Welkom {huidigeGebruiker.voornaam}! Bekijk hier je verlofsaldo en ingediende aanvragen.</p>
+        <p className="text-sm text-gray-500">Bekijk hier je verlofsaldo en ingediende aanvragen.</p>
       </div>
 
-      {/* Saldo blokken gekoppeld aan de database kolommen */}
+      {/* Saldo ding */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-orange-500">
           <p className="text-sm font-medium text-gray-500">Totaal Verlofuren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.totaal_uren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.totaalUren || 0} uur</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-amber-500">
           <p className="text-sm font-medium text-gray-500">Gebruikte Uren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.gebruikte_uren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.gebruikteUren || 0} uur</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-green-500">
           <p className="text-sm font-medium text-gray-500">Resterend Saldo</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.resterende_uren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.resterendeUren || 0} uur</p>
         </div>
       </div>
 
@@ -124,12 +68,12 @@ export default function Verlof() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 text-sm text-gray-600">
-              {huidigeGebruiker.verlof_aanvragen && huidigeGebruiker.verlof_aanvragen.length > 0 ? (
-                huidigeGebruiker.verlof_aanvragen.map((item) => (
+              {huidigeGebruiker.verlofHistorie && huidigeGebruiker.verlofHistorie.length > 0 ? (
+                huidigeGebruiker.verlofHistorie.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="py-4 px-6 font-medium text-gray-800">{item.type}</td>
-                    <td className="py-4 px-6">{item.start_datum}</td>
-                    <td className="py-4 px-6">{item.eind_datum}</td>
+                    <td className="py-4 px-6">{item.startDatum}</td>
+                    <td className="py-4 px-6">{item.eindDatum}</td>
                     <td className="py-4 px-6">{item.uren} uur</td>
                     <td className="py-4 px-6 text-gray-500">{item.opmerking}</td>
                     <td className="py-4 px-6">
@@ -158,5 +102,4 @@ export default function Verlof() {
       </div>
     </div>
   );
->>>>>>> Stashed changes
 }

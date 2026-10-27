@@ -7,4 +7,4 @@ export default function Inlog() {
                     <Login/>
         </div>
     );
-}x
+}

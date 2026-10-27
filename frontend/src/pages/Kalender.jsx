@@ -1,15 +1,7 @@
-<<<<<<< Updated upstream
-export default function Kalender() {
-    return (
-        <div className="p-8">
-            <h1>wat een mooie kalender</h1>
-        </div>
-    );
-=======
-// src/pages/Kalender.jsx
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import React, { useEffect, useState } from 'react';
+import usersData from '../data/users.json';
 
 export default function Kalender() {
   const [huidigeGebruiker, setHuidigeGebruiker] = useState(null);
@@ -17,7 +9,9 @@ export default function Kalender() {
   useEffect(() => {
     const storedUser = localStorage.getItem('geoprofs_user');
     if (storedUser) {
-      setHuidigeGebruiker(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      const volledigeData = usersData.find(u => u.id === parsedUser.id) || parsedUser;
+      setHuidigeGebruiker(volledigeData);
     }
   }, []);
 
@@ -45,9 +39,8 @@ export default function Kalender() {
           center: 'title',
           right: 'dayGridMonth,dayGridWeek'
         }}
-        events={calendarEvents}
+        events={calendarEvents} // Hier laden we de dynamische events in!
       />
     </div>
   );
->>>>>>> Stashed changes
 }

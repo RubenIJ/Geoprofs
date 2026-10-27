@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../supabase'; // Zorg dat deze import bovenin staat
+import { supabase } from '../supabase';
 
 export default function Instellingen() {
     const navigate = useNavigate();
@@ -13,16 +13,17 @@ export default function Instellingen() {
         }
     }, []);
 
-    const getInitials = (naam) => {
-        if (!naam) return '';
-        return naam.trim().charAt(0).toUpperCase();
+    const getInitials = (voornaam) => {
+        if (!voornaam) return '';
+        return voornaam.trim().charAt(0).toUpperCase();
     };
 
-   async function handleLogout() {
-       await supabase.auth.signOut(); // Sluit ook de echte Supabase sessie af!
-       localStorage.removeItem('geoprofs_user');
-       navigate('/inloggen');
-   }
+    async function handleLogout() {
+        await supabase.auth.signOut();
+        localStorage.removeItem('geoprofs_user');
+        navigate('/inloggen');
+    }
+
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-6">
             {/* Paginatitel */}
@@ -38,24 +39,22 @@ export default function Instellingen() {
                 <div className="flex items-center gap-4">
                     {/* Avatar cirkel met initiaal */}
                     <div className="w-16 h-16 rounded-full bg-[#FF7A00] text-white font-bold flex items-center justify-center text-2xl shadow-inner">
-                        {user ? getInitials(user.naam) : '?'}
+                        {user ? getInitials(user.voornaam) : '?'}
                     </div>
 
-                   <div className="space-y-1">
-                       <h3 className="text-xl font-bold text-slate-900">
-                           {user ? user.naam : 'Niet ingelogd'}
-                       </h3>
-                       <div className="text-sm text-slate-600 space-y-0.5">
-                           <p>
-                               <span className="font-medium">E-mailadres: </span> {user ? user.email : '-'}
-                           </p>
-                           <p>
-                               <span className="font-medium">BSN: </span> {user ? user.bsn : '-'}
-                           </p>
-                       </div>
-                   </div>
-
-
+                    <div className="space-y-1">
+                        <h3 className="text-xl font-bold text-slate-900">
+                            {user ? `${user.voornaam} ${user.achternaam}` : 'Niet ingelogd'}
+                        </h3>
+                        <div className="text-sm text-slate-600 space-y-0.5">
+                            <p>
+                                <span className="font-medium">E-mailadres: </span> {user ? user.email : '-'}
+                            </p>
+                            <p>
+                                <span className="font-medium">BSN: </span> {user ? user.bsn_nummer : '-'}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 

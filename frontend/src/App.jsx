@@ -9,7 +9,6 @@ import Instellingen from './pages/Instellingen.jsx';
 import Inlog from './pages/Inlog.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Custom404 from './pages/NietGevonden';
-
 function App() {
     return (
         <Routes>

@@ -10,7 +10,6 @@ return new class extends Migration {
         Schema::create('verlofredenen', function (Blueprint $table) {
             $table->id();
             $table->string('beschrijving');
-            $table->timestamps();
         });
     }
 

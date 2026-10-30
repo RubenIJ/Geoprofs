@@ -10,14 +10,15 @@ return new class extends Migration {
         Schema::create('medewerkers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('afdeling_id')->constrained('afdelingen');
-            $table->integer('bsn_nummer');
+            $table->foreignId('rol_id')->constrained('rollen');
+            $table->uuid('user_id')->nullable()->unique();
+            $table->unsignedInteger('bsn_nummer');
             $table->string('voornaam');
             $table->string('achternaam');
             $table->string('telefoonnummer');
-            $table->string('functie');
-            $table->string('rol')->default('medewerker');
+            $table->string('email')->unique();
             $table->integer('totaal_uren');
-            $table->integer('gebruikte_uren');
+            $table->integer('gebruikte_uren')->default(0);
             $table->integer('resterende_uren');
             $table->timestamps();
         });
@@ -28,3 +29,5 @@ return new class extends Migration {
         Schema::dropIfExists('medewerkers');
     }
 };
+
+

@@ -10,9 +10,9 @@ export default function Header() {
         }
     }, []);
 
-    const getInitials = (naam) => {
-        if (!naam) return '';
-        return naam.trim().charAt(0).toUpperCase();
+    const getInitials = (voornaam) => {
+        if (!voornaam) return '';
+        return voornaam.trim().charAt(0).toUpperCase();
     };
 
     return (
@@ -26,11 +26,11 @@ export default function Header() {
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3 bg-white/10 px-3 py-1.5 rounded-full">
                     <div className="w-8 h-8 rounded-full bg-white text-[#FF7A00] font-bold flex items-center justify-center text-sm">
-                        {user ? getInitials(user.naam) : '?'}
+                        {user ? getInitials(user.voornaam) : '?'}
                     </div>
                     <div className="text-sm text-left">
                         <p className="font-semibold leading-tight">
-                            {user ? user.naam : 'Niet ingelogd'}
+                            {user ? `${user.voornaam} ${user.achternaam}` : 'Niet ingelogd'}
                         </p>
                     </div>
                 </div>

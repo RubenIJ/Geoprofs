@@ -18,7 +18,6 @@ namespace Geoprofs
             InitializeComponent();
             SetupRooster();
 
-            // Laad de data vanuit Supabase bij het openen
             _ = LaadDataAsync();
         }
 
@@ -97,6 +96,42 @@ namespace Geoprofs
 
         private void SetupVerlofAanvragenTab()
         {
+            Panel panelContainer = new Panel
+            {
+                Dock = DockStyle.Fill
+            };
+
+            FlowLayoutPanel panelKnoppen = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                Height = 45,
+                FlowDirection = FlowDirection.LeftToRight,
+                Padding = new Padding(5)
+            };
+
+            Button btnMassaGoedkeuren = new Button
+            {
+                Text = "Massa Goedkeuren",
+                Height = 32,
+                Width = 160,
+                BackColor = Color.LightGreen,
+                UseVisualStyleBackColor = true
+            };
+            btnMassaGoedkeuren.Click += BtnMassaGoedkeuren_Click;
+
+            Button btnMassaAfkeuren = new Button
+            {
+                Text = "Massa Afkeuren",
+                Height = 32,
+                Width = 160,
+                BackColor = Color.LightCoral,
+                UseVisualStyleBackColor = true
+            };
+            btnMassaAfkeuren.Click += BtnMassaAfkeuren_Click;
+
+            panelKnoppen.Controls.Add(btnMassaGoedkeuren);
+            panelKnoppen.Controls.Add(btnMassaAfkeuren);
+
             gridAanvragen = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -106,15 +141,20 @@ namespace Geoprofs
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect
             };
 
+            panelContainer.Controls.Add(gridAanvragen);
+            panelContainer.Controls.Add(panelKnoppen);
+
             if (tabControl1.TabPages.Count >= 3)
             {
-                tabControl1.TabPages[2].Controls.Add(gridAanvragen);
+                tabControl1.TabPages[2].Controls.Clear();
+                tabControl1.TabPages[2].Controls.Add(panelContainer);
             }
 
-            // Koppel de klik-events voor goedkeuren / afwijzen op basis van de database ID
             gridAanvragen.CellClick += async (sender, e) =>
             {
                 if (e.RowIndex < 0 || gridAanvragen == null) return;
+
+                if (gridAanvragen.Columns[e.ColumnIndex].Name == "ColSelect") return;
 
                 string id = gridAanvragen.Rows[e.RowIndex].Cells["id"].Value?.ToString() ?? "";
                 string werknemer = gridAanvragen.Rows[e.RowIndex].Cells["werknemer"].Value?.ToString() ?? "";
@@ -135,26 +175,113 @@ namespace Geoprofs
             };
         }
 
+        private async void BtnMassaGoedkeuren_Click(object sender, EventArgs e)
+        {
+            List<string> geselecteerdeIds = new List<string>();
+
+            foreach (DataGridViewRow row in gridAanvragen.Rows)
+            {
+                bool isGeselecteerd = Convert.ToBoolean(row.Cells["ColSelect"]?.Value ?? false);
+                if (isGeselecteerd)
+                {
+                    string id = row.Cells["id"].Value?.ToString() ?? "";
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        geselecteerdeIds.Add(id);
+                    }
+                }
+            }
+
+            if (geselecteerdeIds.Count == 0)
+            {
+                MessageBox.Show("Selecteer eerst minimaal één verlofaanvraag via de vinkjes.", "Geen selectie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show($"Weet je zeker dat je {geselecteerdeIds.Count} geselecteerde aanvraag/aanvragen wilt goedkeuren?", "Massa Goedkeuren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    foreach (string id in geselecteerdeIds)
+                    {
+                        await UpdateStatusInDatabaseAsync(id, 2);
+                    }
+
+                    MessageBox.Show("De geselecteerde aanvragen zijn succesvol goedgekeurd!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LaadVerlofaanvragenUitDatabaseAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fout bij massa-goedkeuring: {ex.Message}", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async void BtnMassaAfkeuren_Click(object sender, EventArgs e)
+        {
+            List<string> geselecteerdeIds = new List<string>();
+
+            foreach (DataGridViewRow row in gridAanvragen.Rows)
+            {
+                bool isGeselecteerd = Convert.ToBoolean(row.Cells["ColSelect"]?.Value ?? false);
+                if (isGeselecteerd)
+                {
+                    string id = row.Cells["id"].Value?.ToString() ?? "";
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        geselecteerdeIds.Add(id);
+                    }
+                }
+            }
+
+            if (geselecteerdeIds.Count == 0)
+            {
+                MessageBox.Show("Selecteer eerst minimaal één verlofaanvraag via de vinkjes.", "Geen selectie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show($"Weet je zeker dat je {geselecteerdeIds.Count} geselecteerde aanvraag/aanvragen wilt afwijzen?", "Massa Afkeuren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    foreach (string id in geselecteerdeIds)
+                    {
+                        await UpdateStatusInDatabaseAsync(id, 3);
+                    }
+
+                    MessageBox.Show("De geselecteerde aanvragen zijn succesvol afgewezen!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LaadVerlofaanvragenUitDatabaseAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fout bij massa-afkeuring: {ex.Message}", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private async Task LaadVerlofaanvragenUitDatabaseAsync()
         {
             if (gridAanvragen == null) return;
 
             try
             {
-                // Correcte JOIN met de 'status' tabel (en 'status_id')
                 string query = @"
-            SELECT 
-                v.id, 
-                m.voornaam || ' ' || m.achternaam AS werknemer, 
-                v.startdatum AS van, 
-                v.einddatum AS tot, 
-                vr.beschrijving AS reden, 
-                st.naam AS status,
-                v.status_id
-            FROM verlofaanvragen v
-            JOIN medewerkers m ON v.medewerker_id = m.id
-            JOIN verlofredenen vr ON v.verlofreden_id = vr.id
-            JOIN status st ON v.status_id = st.id;";
+                    SELECT 
+                        v.id, 
+                        m.voornaam || ' ' || m.achternaam AS werknemer, 
+                        v.startdatum AS van, 
+                        v.einddatum AS tot, 
+                        vr.beschrijving AS reden, 
+                        st.naam AS status,
+                        v.status_id
+                    FROM verlofaanvragen v
+                    JOIN medewerkers m ON v.medewerker_id = m.id
+                    JOIN verlofredenen vr ON v.verlofreden_id = vr.id
+                    JOIN status st ON v.status_id = st.id;";
 
                 DataTable dt = await Database.GetTableAsync(query);
                 gridAanvragen.DataSource = dt;
@@ -162,6 +289,18 @@ namespace Geoprofs
                 if (gridAanvragen.Columns.Contains("status_id"))
                 {
                     gridAanvragen.Columns["status_id"].Visible = false;
+                }
+
+                if (!gridAanvragen.Columns.Contains("ColSelect"))
+                {
+                    DataGridViewCheckBoxColumn selectCol = new DataGridViewCheckBoxColumn
+                    {
+                        Name = "ColSelect",
+                        HeaderText = "Selecteer",
+                        Width = 70,
+                        ReadOnly = false
+                    };
+                    gridAanvragen.Columns.Insert(0, selectCol);
                 }
 
                 if (!gridAanvragen.Columns.Contains("ColGoedkeuren"))
@@ -243,7 +382,7 @@ namespace Geoprofs
                 File.WriteAllText(saveFileDialog.FileName, csvContent.ToString(), Encoding.UTF8);
 
                 MessageBox.Show("Afwezigheidsgegevens zijn succesvol geëxporteerd!", "Export Voltooid",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

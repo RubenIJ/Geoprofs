@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\appsettings.json||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\appsettings.json||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\onedrive - roc nijmegen\\geoprofs\\software\\geoprofs\\geoprofs\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,20 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\appsettings.json",
-              "RelativeDocumentMoniker": "Geoprofs\\appsettings.json",
-              "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\appsettings.json*",
-              "RelativeToolTip": "Geoprofs\\appsettings.json*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-10-26T12:38:15.737Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "LoginForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\LoginForm.cs",
@@ -95,18 +78,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.cs",
-              "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs [Design]",
-              "RelativeToolTip": "Geoprofs\\MainForm.cs [Design]",
+              "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs [Design]*",
+              "RelativeToolTip": "Geoprofs\\MainForm.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-26T12:20:03.675Z"
+              "WhenOpened": "2026-10-26T12:20:03.675Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LoginForm.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\LoginForm.cs",
@@ -119,19 +103,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.cs",
-              "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
-              "RelativeToolTip": "Geoprofs\\MainForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs*",
+              "RelativeToolTip": "Geoprofs\\MainForm.cs*",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwIQBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-25T10:54:12.446Z"
+              "WhenOpened": "2026-09-25T10:54:12.446Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "MainForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.Designer.cs",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.Designer.cs",
@@ -139,11 +124,12 @@
               "RelativeToolTip": "Geoprofs\\MainForm.Designer.cs",
               "ViewState": "AgIAAFEAAAAAAAAAAAApwGYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T12:30:01.473Z"
+              "WhenOpened": "2026-09-16T12:30:01.473Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "Geoprofs.csproj",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Geoprofs.csproj",
               "RelativeDocumentMoniker": "Geoprofs\\Geoprofs.csproj",
@@ -155,19 +141,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Program.cs",
               "RelativeDocumentMoniker": "Geoprofs\\Program.cs",
               "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Program.cs",
               "RelativeToolTip": "Geoprofs\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T12:30:12.918Z"
+              "WhenOpened": "2026-09-16T12:30:12.918Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "LoginForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.Designer.cs",
               "RelativeDocumentMoniker": "Geoprofs\\LoginForm.Designer.cs",
@@ -179,18 +166,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "MainForm.resx",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.resx",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.resx",
               "ToolTip": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.resx",
               "RelativeToolTip": "Geoprofs\\MainForm.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-09-30T11:57:00.859Z"
+              "WhenOpened": "2026-09-30T11:57:00.859Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Database.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Database.cs",
               "RelativeDocumentMoniker": "Geoprofs\\Database.cs",
@@ -202,7 +190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "API.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Code\\API.cs",
               "RelativeDocumentMoniker": "Geoprofs\\Code\\API.cs",
@@ -214,7 +202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "VerlofAanvraag.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\OneDrive - ROC Nijmegen\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\Code\\VerlofAanvraag.cs",
               "RelativeDocumentMoniker": "Geoprofs\\Code\\VerlofAanvraag.cs",

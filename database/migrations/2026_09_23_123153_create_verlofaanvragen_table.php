@@ -12,11 +12,9 @@ return new class extends Migration {
     {
         Schema::create('verlofaanvragen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('medewerker_id')->constrained();
+            $table->foreignId('medewerker_id')->constrained('medewerkers');
             $table->foreignId('verlofreden_id')->constrained('verlofredenen');
-            $table->string('status')->default('aangevraagd');
-            $table->foreignId('goedgekeurd_door')->nullable()->constrained('medewerkers');
-            $table->date('beoordeeld_op')->nullable();
+            $table->foreignId('status_id')->default(1)->constrained('status');
             $table->date('startdatum');
             $table->date('einddatum');
             $table->timestamps();

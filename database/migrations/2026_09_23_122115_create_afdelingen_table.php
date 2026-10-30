@@ -10,7 +10,6 @@ return new class extends Migration {
         Schema::create('afdelingen', function (Blueprint $table) {
             $table->id();
             $table->string('naam');
-            $table->timestamps();
         });
     }
 

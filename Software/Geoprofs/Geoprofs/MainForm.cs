@@ -8,12 +8,12 @@ using Krypton.Toolkit;
 
 namespace Geoprofs
 {
-    public partial class Form1 : KryptonForm
+    public partial class MainForm : KryptonForm
     {
         private KryptonDataGridView? grid;
         private DataGridView? gridAanvragen;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             SetupRooster();

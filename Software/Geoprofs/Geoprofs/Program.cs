@@ -8,10 +8,22 @@ namespace Geoprofs
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            // Opent inlog scherm
+            using (LoginForm loginForm = new LoginForm())
+            {
+                // Als de inlog slaagt (DialogResult.OK), start pas de MainForm
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new MainForm());
+                }
+                else
+                {
+                    // Als de gebruiker het inlogscherm sluit, stopt de applicatie
+                    Application.Exit();
+                }
+            }
         }
     }
 }

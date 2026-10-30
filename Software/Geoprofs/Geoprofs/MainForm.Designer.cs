@@ -1,6 +1,6 @@
 ﻿namespace Geoprofs
 {
-    partial class Form1 : Krypton.Toolkit.KryptonForm
+    partial class MainForm : Krypton.Toolkit.KryptonForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -62,7 +62,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(1071, 638);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // Column1
             // 

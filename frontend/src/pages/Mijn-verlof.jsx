@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import usersData from '../data/users.json';
 
 export default function Verlof() {
   const [huidigeGebruiker, setHuidigeGebruiker] = useState(null);
@@ -7,9 +6,7 @@ export default function Verlof() {
   useEffect(() => {
     const storedUser = localStorage.getItem('geoprofs_user');
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      const volledigeData = usersData.find(u => u.id === parsedUser.id) || parsedUser;
-      setHuidigeGebruiker(volledigeData);
+      setHuidigeGebruiker(JSON.parse(storedUser));
     }
   }, []);
 
@@ -17,7 +14,7 @@ export default function Verlof() {
     return (
       <div className="p-8 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-800">Mijn Verlof</h1>
-        <p className="mt-2 text-gray-600">Laden:)</p>
+        <p className="mt-2 text-gray-600">Laden :)</p>
       </div>
     );
   }
@@ -30,19 +27,19 @@ export default function Verlof() {
         <p className="text-sm text-gray-500">Bekijk hier je verlofsaldo en ingediende aanvragen.</p>
       </div>
 
-      {/* Saldo ding */}
+      {/* Saldo blokken */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-orange-500">
           <p className="text-sm font-medium text-gray-500">Totaal Verlofuren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.totaalUren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.totaal_uren || 0} uur</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-amber-500">
           <p className="text-sm font-medium text-gray-500">Gebruikte Uren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.gebruikteUren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.gebruikte_uren || 0} uur</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-green-500">
           <p className="text-sm font-medium text-gray-500">Resterend Saldo</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.resterendeUren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.resterende_uren || 0} uur</p>
         </div>
       </div>
 

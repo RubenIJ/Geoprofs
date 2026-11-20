@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import usersData from '../data/users.json';
 
 export default function Verlof() {
   const [huidigeGebruiker, setHuidigeGebruiker] = useState(null);
@@ -7,9 +6,7 @@ export default function Verlof() {
   useEffect(() => {
     const storedUser = localStorage.getItem('geoprofs_user');
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      const volledigeData = usersData.find(u => u.id === parsedUser.id) || parsedUser;
-      setHuidigeGebruiker(volledigeData);
+      setHuidigeGebruiker(JSON.parse(storedUser));
     }
   }, []);
 
@@ -17,7 +14,7 @@ export default function Verlof() {
     return (
       <div className="p-8 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-800">Mijn Verlof</h1>
-        <p className="mt-2 text-gray-600">Laden:)</p>
+        <p className="mt-2 text-gray-600">Laden :)</p>
       </div>
     );
   }
@@ -30,19 +27,19 @@ export default function Verlof() {
         <p className="text-sm text-gray-500">Bekijk hier je verlofsaldo en ingediende aanvragen.</p>
       </div>
 
-      {/* Saldo ding */}
+      {/* Saldo blokken (aangepast naar dagen) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-orange-500">
-          <p className="text-sm font-medium text-gray-500">Totaal Verlofuren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.totaalUren || 0} uur</p>
+          <p className="text-sm font-medium text-gray-500">Totaal Verlofdagen</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.totale_dagen || 0} dagen</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-amber-500">
-          <p className="text-sm font-medium text-gray-500">Gebruikte Uren</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.gebruikteUren || 0} uur</p>
+          <p className="text-sm font-medium text-gray-500">Gebruikte Dagen</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.gebruikte_dagen || 0} dagen</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-green-500">
           <p className="text-sm font-medium text-gray-500">Resterend Saldo</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.verlofSaldo?.resterendeUren || 0} uur</p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">{huidigeGebruiker.resterende_dagen || 0} dagen</p>
         </div>
       </div>
 
@@ -62,7 +59,7 @@ export default function Verlof() {
                 <th className="py-3 px-6">Type</th>
                 <th className="py-3 px-6">Van</th>
                 <th className="py-3 px-6">Tot</th>
-                <th className="py-3 px-6">Uren</th>
+                <th className="py-3 px-6">Dagen</th>
                 <th className="py-3 px-6">Opmerking</th>
                 <th className="py-3 px-6">Status</th>
               </tr>
@@ -74,7 +71,8 @@ export default function Verlof() {
                     <td className="py-4 px-6 font-medium text-gray-800">{item.type}</td>
                     <td className="py-4 px-6">{item.startDatum}</td>
                     <td className="py-4 px-6">{item.eindDatum}</td>
-                    <td className="py-4 px-6">{item.uren} uur</td>
+                    {/* Aangepast van uur naar dagen */}
+                    <td className="py-4 px-6">{item.dagen || item.uren} dagen</td>
                     <td className="py-4 px-6 text-gray-500">{item.opmerking}</td>
                     <td className="py-4 px-6">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${

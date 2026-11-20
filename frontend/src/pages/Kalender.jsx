@@ -30,17 +30,27 @@ export default function Kalender() {
         // Map de data naar FullCalendar events
         const events = data.map(verlof => {
           const isGoedgekeurd = verlof.status_id === 2;
+          const isAfgekeurd = verlof.status_id === 3; // Aangepast van status.id naar status_id
 
           // Pakt netjes 'beschrijving' uit de relational join
           const redenNaam = verlof.verlofredenen?.beschrijving || 'Verlof';
+
+          // Bepaal de kleuren op basis van de status
+          const backgroundColor = isAfgekeurd
+            ? '#f50b22' // Rood
+            : isGoedgekeurd
+              ? '#10B981' // Groen
+              : '#F59E0B'; // Oranje (in afwachting)
+
+          const borderColor = isGoedgekeurd ? '#059669' : '#D97706';
 
           return {
             id: verlof.id,
             title: redenNaam,
             start: verlof.startdatum,
             end: verlof.einddatum,
-            backgroundColor: isGoedgekeurd ? '#10B981' : '#F59E0B',
-            borderColor: isGoedgekeurd ? '#059669' : '#D97706',
+            backgroundColor,
+            borderColor,
             classNames: ['rounded-md', 'px-2', 'py-1', 'shadow-sm', 'font-medium', 'text-xs'],
             extendedProps: {
               medewerkerId: verlof.medewerker_id,

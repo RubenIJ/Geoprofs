@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace Geoprofs
 {
@@ -12,6 +13,7 @@ namespace Geoprofs
         {
             InitializeComponent();
         }
+
         private async void button1_Click_1(object sender, EventArgs e)
         {
             string email = textBox1?.Text?.Trim() ?? "";
@@ -47,6 +49,17 @@ namespace Geoprofs
 
                 if (signInResult != null && signInResult.User != null)
                 {
+                    bool isToegestaan = await ControleerAdminIdAsync(email);
+
+                    if (!isToegestaan)
+                    {
+                        await supabase.Auth.SignOut();
+                        MessageBox.Show("Dit is geen login van een Manager", "Geen Toegang", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        if (textBox2 != null) textBox2.Clear();
+                        textBox1?.Focus();
+                        return;
+                    }
+
                     MessageBox.Show("Welkom bij GeoProfs!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -63,5 +76,19 @@ namespace Geoprofs
                 MessageBox.Show($"Inloggen mislukt: {ex.Message}", "Authenticatie Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     }
+
+        private async Task<bool> ControleerAdminIdAsync(string email)
+        {
+            string veiligeEmail = email.Replace("'", "''");
+            string query = $"SELECT rol_id FROM medewerkers WHERE LOWER(email) = LOWER('{veiligeEmail}') LIMIT 1;";
+            DataTable dt = await Database.GetTableAsync(query);
+
+            if (dt.Rows.Count == 0 || dt.Rows[0]["rol_id"] == DBNull.Value)
+            {
+                return false;
+            }
+
+            return Convert.ToInt32(dt.Rows[0]["rol_id"]) == 1;
+        }
     }
+}

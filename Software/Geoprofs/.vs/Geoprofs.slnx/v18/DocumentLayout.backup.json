@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\loginform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\loginform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|solutionrelative:geoprofs\\loginform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8845CF6-565B-62C9-C68E-65A87F0C3BE4}|Geoprofs\\Geoprofs.csproj|c:\\users\\rvani\\source\\repos\\geoprofs\\software\\geoprofs\\geoprofs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "LoginForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.Designer.cs",
               "RelativeDocumentMoniker": "Geoprofs\\LoginForm.Designer.cs",
@@ -62,22 +62,24 @@
               "RelativeToolTip": "Geoprofs\\LoginForm.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-04T13:19:15.628Z"
+              "WhenOpened": "2026-11-04T13:19:15.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
+              "RelativeDocumentMoniker": "Geoprofs\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs [Design]*",
+              "RelativeToolTip": "Geoprofs\\LoginForm.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-04T13:19:04.748Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "LoginForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
-              "RelativeDocumentMoniker": "Geoprofs\\LoginForm.cs",
-              "ToolTip": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs [Design]",
-              "RelativeToolTip": "Geoprofs\\LoginForm.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-04T13:19:04.748Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\appsettings.json",
               "RelativeDocumentMoniker": "Geoprofs\\appsettings.json",
@@ -85,11 +87,12 @@
               "RelativeToolTip": "Geoprofs\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-11-02T11:50:55.507Z"
+              "WhenOpened": "2026-11-02T11:50:55.507Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.cs",
@@ -101,25 +104,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "LoginForm.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\LoginForm.cs",
-              "ToolTip": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs",
-              "RelativeToolTip": "Geoprofs\\LoginForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\LoginForm.cs*",
+              "RelativeToolTip": "Geoprofs\\LoginForm.cs*",
+              "ViewState": "AgIAACsAAAAAAAAAAAAuwDwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-02T11:38:26.734Z"
+              "WhenOpened": "2026-11-02T11:38:26.734Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
               "RelativeDocumentMoniker": "Geoprofs\\MainForm.cs",
               "ToolTip": "C:\\Users\\rvani\\source\\repos\\Geoprofs\\Software\\Geoprofs\\Geoprofs\\MainForm.cs",
               "RelativeToolTip": "Geoprofs\\MainForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAK8BAAAAAAAAAAA6wMIBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-02T11:38:13.735Z",
               "EditorCaption": ""

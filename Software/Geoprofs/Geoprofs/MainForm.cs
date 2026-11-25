@@ -447,7 +447,8 @@ namespace Geoprofs
                     FROM verlofaanvragen v
                     JOIN medewerkers m ON v.medewerker_id = m.id
                     JOIN verlofredenen vr ON v.verlofreden_id = vr.id
-                    JOIN status st ON v.status_id = st.id;";
+                    JOIN status st ON v.status_id = st.id
+                    WHERE v.status_id <> 4;";
 
                 DataTable dt = await Database.GetTableAsync(query);
                 gridAanvragen.DataSource = dt;

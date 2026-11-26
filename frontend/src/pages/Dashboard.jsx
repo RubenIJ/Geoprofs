@@ -13,11 +13,9 @@ export default function Dashboard() {
                 const { data, error } = await supabase
                     .from('afdelingen')
                     .select('*');
-
                 if (error) {
                     throw error;
                 }
-
                 setAfdelingen(data);
             } catch (err) {
                 setError(err.message);
@@ -25,7 +23,6 @@ export default function Dashboard() {
                 setLoading(false);
             }
         }
-
         testSupabaseVerbinding();
     }, []);
 

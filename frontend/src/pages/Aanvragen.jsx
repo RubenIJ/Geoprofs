@@ -71,7 +71,7 @@ export default function Aanvragen() {
 
         const { data: eigenAanvragen } = await supabase
           .from('verlofaanvragen')
-          .select('startdatum, einddatum, status_id')
+          .select('startdatum, einddatum, aangevraagde_dagen, status_id')
           .eq('medewerker_id', user.id);
 
         const totaalDagen = Number(
@@ -83,7 +83,11 @@ export default function Aanvragen() {
 
         const berekendGebruikt = (eigenAanvragen || [])
           .filter((item) => item.status_id === 2) // 2 = Goedgekeurd
-          .reduce((som, item) => som + berekenWerkdagen(item.startdatum, item.einddatum), 0);
+          .reduce(
+            (som, item) =>
+              som + Number(item.aangevraagde_dagen ?? berekenWerkdagen(item.startdatum, item.einddatum)),
+            0
+          );
 
         const gebruikteDagen = Number(
           medewerker?.gebruikte_dagen ?? berekendGebruikt ?? 0
@@ -174,6 +178,7 @@ export default function Aanvragen() {
         );
       }
 
+      // aangevraagde_dagen wordt door de database zelf berekend bij het inserten
       const { error: insertError } = await supabase
         .from('verlofaanvragen')
         .insert([
@@ -210,7 +215,7 @@ export default function Aanvragen() {
         </p>
       </div>
 
-      {/* 3 Saldo-blokjes bovenaan zoals in het screenshot */}
+      {/* 3 Saldo-blokjes bovenaan */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white px-7 py-6 rounded-2xl shadow-sm border border-gray-100 border-l-[5px] border-l-[#FF7A00]">
           <p className="text-sm font-medium text-gray-400">Totaal Verlofdagen</p>

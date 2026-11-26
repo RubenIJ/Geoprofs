@@ -5,25 +5,19 @@ import { supabase } from '../supabase';
 export default function Instellingen() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-
     useEffect(() => {
         const storedUser = localStorage.getItem('geoprofs_user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
+        if (storedUser) {setUser(JSON.parse(storedUser));}
     }, []);
-
     const getInitials = (voornaam) => {
         if (!voornaam) return '';
         return voornaam.trim().charAt(0).toUpperCase();
     };
-
     async function handleLogout() {
         await supabase.auth.signOut();
         localStorage.removeItem('geoprofs_user');
         navigate('/inloggen');
     }
-
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-6">
             {/* Paginatitel */}
